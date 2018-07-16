@@ -1,9 +1,24 @@
 import React from 'react';
-import { hot } from 'react-hot-loader';
+import { Provider } from 'react-redux';
+import { createBrowserHistory } from 'history';
+import { ConnectedRouter } from 'connected-react-router';
+
 import './styles/app.scss';
 
+import configureStore from './store';
+import Routes from './routes';
+
+const history = createBrowserHistory();
+const store = configureStore(history);
+
 const App = () => {
-  return <div>Hello Norin!</div>;
+  return (
+    <Provider store={store}>
+      <ConnectedRouter history={history}>
+        <Routes />
+      </ConnectedRouter>
+    </Provider>
+  );
 };
 
-export default hot(module)(App);
+export default App;

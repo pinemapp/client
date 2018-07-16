@@ -1,0 +1,40 @@
+@mixin ripple($color) {
+  background-position: center;
+  transition: background 0.8s;
+
+  &:not(disabled):not(.disabled):hover {
+    background: darken($color, 7.5%) radial-gradient(circle, transparent 1%, darken($color, 7.5%) 1%) center/15000%;
+  }
+
+  &:not(:disabled):not(.disabled):active,
+  &:not(:disabled):not(.disabled).active {
+    background-size: 100%;
+    transition: background 0s;
+    background-color: lighten($color, 10%);
+  }
+}
+
+.btn {
+  border: none;
+  outline: none;
+
+  &:focus {
+    outline: none;
+    box-shadow: none;
+  }
+
+  &:not(:disabled):not(.disabled):active,
+  &:not(:disabled):not(.disabled).active {
+    box-shadow: none;
+
+    &:focus {
+      box-shadow: none;
+    }
+  }
+}
+
+@each $color, $value in $theme-colors {
+  .btn-#{$color}.ripple {
+    @include ripple($value);
+  }
+}

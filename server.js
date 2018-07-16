@@ -11,20 +11,28 @@ if (isDev) {
   const config = require('./webpack.config');
   const WebpackDevMiddleware = require('webpack-dev-middleware');
   const WebpackHotMiddleware = require('webpack-hot-middleware');
+  const historyApiFallback = require('connect-history-api-fallback');
 
   const compiler = webpack(config);
+
+  app.use(historyApiFallback({
+    verbose: false
+  }));
+
   app.use(WebpackDevMiddleware(compiler, {
     publicPath: config.output.publicPath
   }));
 
   app.use(WebpackHotMiddleware(compiler));
+  app.get('*', function(req, res) {
+    res.sendFile(path.join(__dirname, 'index.html'));
+  });
 } else {
   app.use(express.static(path.join(__dirname, 'dist')))
+  app.get('*', function(req, res) {
+    res.sendFile(path.join(__dirname, 'dist/index.html'));
+  });
 }
-
-app.get('*', function(req, res) {
-  res.sendFile(path.join(__dirname, 'dist/index.html'));
-});
 
 app.listen(port, function(err) {
   if (err) {

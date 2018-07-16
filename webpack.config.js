@@ -24,7 +24,7 @@ const App = {
     new webpack.DefinePlugin({ __DEV__: isDev }),
     new HtmlWebpackPlugin({
       filename: 'index.html',
-      template: 'index.html',
+      template: path.join(__dirname, 'index.html'),
       minify: {
         removeComments: !isDev,
         collapseWhitespace: !isDev
@@ -59,7 +59,7 @@ let config = {
   devtool: App.devtool,
 
   output: {
-    publicPath: '',
+    publicPath: '/',
     filename: isDev ? 'bundle.js' : 'bundle-[hash].js',
     path: path.join(__dirname, 'dist')
   },
