@@ -1,0 +1,29 @@
+.navbar {
+  .search {
+    background-color: #fff;
+    border: 1px solid #d2d2d2;
+    border-radius: 3px;
+    input, button {
+      border: none;
+      outline: none;
+      background-color: none;
+    }
+    input {
+      width: 200px;
+      transition: all 0.2s;
+    }
+    &.active {
+      border-color: lighten($primary, 25%);
+      input {
+        width: 300px;
+      }
+    }
+  }
+  .avatar {
+    padding: 0;
+    .img-avatar {
+      width: 30px;
+      height: 30px;
+    }
+  }
+}
