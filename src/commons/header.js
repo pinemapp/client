@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { Dropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
 
 import headerSelector from '../selectors/header';
 import * as headerActions from '../actions/header';
@@ -21,16 +22,16 @@ export class Header extends Component {
 
   constructor(props) {
     super(props);
-    this.state = { isDropdownOpen: false };
+    this.state = { isOpen: false };
   }
 
   toggleDropdown = (event) => {
     event.preventDefault();
-    this.setState({ isDropdownOpen: !this.state.isDropdownOpen });
+    this.setState({ isOpen: !this.state.isOpen });
   }
 
   render() {
-    const { isDropdownOpen } = this.state;
+    const { isOpen } = this.state;
     const { inputClass, toggleSearchFocus } = this.props;
 
     return (
@@ -60,17 +61,17 @@ export class Header extends Component {
               <button className="btn my-2 my-sm-0" type="submit"><FontAwesomeIcon icon="search" /></button>
             </form>
             <ul className="navbar-nav ml-2">
-              <li className="nav-item dropdown">
-                <a className="nav-link dropdown-toggle avatar" href="#" onClick={this.toggleDropdown}>
-                  <img className="img-avatar" src="http://via.placeholder.com/100x100"  />
-                </a>
-                <div className={`dropdown-menu dropdown-menu-right ${isDropdownOpen ? 'show' : ''}`}>
-                  <a className="dropdown-item" href="#">My Account</a>
-                  <a className="dropdown-item" href="#">Settings</a>
-                  <div className="dropdown-divider"></div>
-                  <a className="dropdown-item" href="#">Sign Out</a>
-                </div>
-              </li>
+              <Dropdown className="nav-item" toggle={this.toggleDropdown} isOpen={isOpen}>
+                <DropdownToggle className="nav-link avatar" tag="a" href="#">
+                  <img className="img-avatar" src="http://via.placeholder.com/100x100" />
+                </DropdownToggle>
+                <DropdownMenu right={true}>
+                  <DropdownItem href="#">My Account</DropdownItem>
+                  <DropdownItem href="#">Settings</DropdownItem>
+                  <DropdownItem divider></DropdownItem>
+                  <DropdownItem href="#">Sign Out</DropdownItem>
+                </DropdownMenu>
+              </Dropdown>
             </ul>
           </div>
         </div>
