@@ -1,0 +1,10 @@
+.dropdown {
+  .dropdown-menu {
+    .dropdown-item {
+      &:hover {
+        @extend .active;
+        background-color: lighten($primary, 15%);
+      }
+    }
+  }
+}
