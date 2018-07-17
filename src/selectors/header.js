@@ -1,5 +1,7 @@
 import { createSelector } from 'reselect';
 
+import sessionSelector from './session';
+
 const headerSelector = state => state.header;
 
 const inputClassSelector = createSelector(
@@ -9,6 +11,9 @@ const inputClassSelector = createSelector(
 
 export default createSelector(
   headerSelector,
+  sessionSelector,
   inputClassSelector,
-  (header, inputClass) => ({ inputClass, ...header })
+  (header, { token: _, ...session }, inputClass) => ({
+    inputClass, ...session, ...header
+  })
 );

@@ -7,6 +7,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Dropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
 
 import headerSelector from '../selectors/header';
+import { revokeSession } from '../actions/session';
 import * as headerActions from '../actions/header';
 
 export class Header extends Component {
@@ -17,6 +18,8 @@ export class Header extends Component {
   static propTypes = {
     inputClass: PropTypes.string.isRequired,
     isSearchFocus: PropTypes.bool.isRequired,
+
+    revokeSession: PropTypes.func.isRequired,
     toggleSearchFocus: PropTypes.func.isRequired,
   };
 
@@ -30,12 +33,17 @@ export class Header extends Component {
     this.setState({ isOpen: !this.state.isOpen });
   }
 
+  signout = (event) => {
+    event.preventDefault();
+    this.props.revokeSession();
+  }
+
   render() {
     const { isOpen } = this.state;
-    const { inputClass, toggleSearchFocus } = this.props;
+    const { user, inputClass, toggleSearchFocus } = this.props;
 
     return (
-      <header className="navbar navbar-expand-lg navbar-light bg-light">
+      <header className="navbar navbar-expand-lg navbar-light bg-light fixed-top">
         <div className="container">
           <Link to="/" className="navbar-brand">{ this.context.t('appName') }</Link>
           <button
@@ -60,19 +68,31 @@ export class Header extends Component {
                 onBlur={() => { toggleSearchFocus(false) }} />
               <button className="btn my-2 my-sm-0" type="submit"><FontAwesomeIcon icon="search" /></button>
             </form>
-            <ul className="navbar-nav ml-2">
-              <Dropdown className="nav-item" toggle={this.toggleDropdown} isOpen={isOpen}>
-                <DropdownToggle className="nav-link avatar" tag="a" href="#">
-                  <img className="img-avatar" src="http://via.placeholder.com/100x100" />
-                </DropdownToggle>
-                <DropdownMenu right={true}>
-                  <DropdownItem href="#">My Account</DropdownItem>
-                  <DropdownItem href="#">Settings</DropdownItem>
-                  <DropdownItem divider></DropdownItem>
-                  <DropdownItem href="#">Sign Out</DropdownItem>
-                </DropdownMenu>
-              </Dropdown>
-            </ul>
+
+            { user ? (
+              <ul className="navbar-nav ml-2">
+                <Dropdown className="nav-item" toggle={this.toggleDropdown} isOpen={isOpen}>
+                  <DropdownToggle className="nav-link avatar" tag="a" href="#">
+                    <img className="img-avatar" src="http://via.placeholder.com/100x100" />
+                  </DropdownToggle>
+                  <DropdownMenu right={true}>
+                    <DropdownItem href="#">My Account</DropdownItem>
+                    <DropdownItem href="#">Settings</DropdownItem>
+                    <DropdownItem divider></DropdownItem>
+                    <DropdownItem href="#" onClick={this.signout}>{ this.context.t('signout') }</DropdownItem>
+                  </DropdownMenu>
+                </Dropdown>
+              </ul>
+            ) : (
+              <ul className="navbar-nav ml-2">
+                <li className="nav-item">
+                  <Link to="/signin" className="nav-link">{ this.context.t('signin') }</Link>
+                </li>
+                <li className="nav-item">
+                  <Link to="/signup" className="nav-link">{ this.context.t('signup') }</Link>
+                </li>
+              </ul>
+            ) }
           </div>
         </div>
       </header>
@@ -81,7 +101,7 @@ export class Header extends Component {
 }
 
 const actionCreators = (dispatch) => {
-  return bindActionCreators(headerActions, dispatch);
+  return bindActionCreators({ revokeSession, ...headerActions }, dispatch);
 }
 
 export default connect(headerSelector, actionCreators)(Header);
