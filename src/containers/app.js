@@ -12,7 +12,7 @@ const PrivateRouteWithSubRoutes = (route) => {
     <Route
       path={route.path}
       exact={route.exact}
-      render={(props) => route.token ? (
+      render={(props) => route.user ? (
         <route.component {...props} />
       ) : (
         <Redirect to={{
@@ -43,12 +43,12 @@ const RouteWithSubRoutes = (route) => {
 class AppLayout extends Component {
   render() {
     const { routes, session } = this.props;
-    const { token } = session;
+    const { user } = session;
 
     return (
       <div className="main">
         <Header />
-        {routes.map((route, i) => <RouteWithSubRoutes key={i} token={token} {...route} />)}
+        {routes.map((route, i) => <RouteWithSubRoutes key={i} user={user} {...route} />)}
       </div>
     )
   }

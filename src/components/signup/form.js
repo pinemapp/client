@@ -10,7 +10,10 @@ class SignupForm extends Component {
 
   static propTypes = {
     form: formShape,
-    onSubmit: PropTypes.func.isRequired
+    loading: PropTypes.bool,
+    errors: PropTypes.object,
+    onSubmit: PropTypes.func.isRequired,
+    onChange: PropTypes.func.isRequired
   };
 
   constructor(props) {
@@ -39,6 +42,7 @@ class SignupForm extends Component {
   handleChange = (event) => {
     const { name, value } = event.target;
     this.setState({ [name]: value });
+    this.props.onChange(name);
   }
 
   render() {
@@ -122,6 +126,7 @@ class SignupForm extends Component {
   }
 
   _getErrors() {
+    const { errors } = this.props;
     const { getFieldError } = this.props.form;
     let confirmPasswordErrors = getFieldError('confirmPassword');
     const { password, confirmPassword } = this.state;
@@ -131,9 +136,9 @@ class SignupForm extends Component {
     }
 
     return {
-      name: getFieldError('name'),
-      email: getFieldError('email'),
-      password: getFieldError('password'),
+      name: getFieldError('name') || errors.name,
+      email: getFieldError('email') || errors.email,
+      password: getFieldError('password') || errors.password,
       confirmPassword: confirmPasswordErrors
     };
   }

@@ -5,15 +5,15 @@ import {
   REVOKE_SESSION
 } from '../constants/session';
 
-import storage from '../utils/storage';
+import token from '../utils/token';
 
 export default (state) => (next) => (action) => {
   const type = action.type;
 
   if (type === SESSION_SUCCESS) {
-    storage.setToken(action.payload);
+    token.set(action.payload);
   } else if (type === SESSION_REQUEST || type === SESSION_FAILED || type === REVOKE_SESSION) {
-    storage.removeToken();
+    token.remove();
   }
 
   return next(action);

@@ -1,20 +1,18 @@
+import axios from 'axios';
+
 function fetchToken(payload) {
-  return fetch('http://localhost:8080/token', {
+  return axios({
     method: 'POST',
+    url: 'http://localhost:8080/token',
     headers: {
-      'Accept': 'application/json',
       'Content-Type': 'application/json'
     },
-    body: JSON.stringify(payload)
-  })
-  .then(res => {
-    if (!res.ok) {
-      throw new Error(res.statusText);
-    } else {
-      return res.json();
-    }
-  })
-  .catch(err => { throw err });
+    data: payload
+  }).then(res => {
+    return res.data;
+  }).catch(err => {
+    return Promise.reject(err.response.data);
+  });
 }
 
 export default fetchToken;
