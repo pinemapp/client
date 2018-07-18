@@ -19,5 +19,5 @@ export default {
   errorMin: 'too short ({min})',
   errorMax: 'too long ({max})',
   errorConfirm: 'does not match',
-  error_invalid_credentials: 'Invalid Username or Password',
+  errorCredentials: 'Invalid Username or Password',
 };
