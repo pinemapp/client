@@ -5,7 +5,7 @@ import { connectRouter, routerMiddleware } from 'connected-react-router';
 
 import appSaga from './sagas';
 import appReducers from './reducers';
-import storage from './utils/storage';
+import token from './utils/token';
 import { setSession } from './actions/session';
 import sessionMiddleware from './middlewares/session';
 
@@ -39,9 +39,9 @@ const configure = (history) => {
 
   sagaMiddleware.run(appSaga);
 
-  const token = storage.getToken();
-  if (token) {
-    store.dispatch(setSession(token));
+  const value = token.get();
+  if (value) {
+    store.dispatch(setSession(value));
   }
 
   return store;

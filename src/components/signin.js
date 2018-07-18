@@ -1,6 +1,12 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
+import { includes as _includes } from 'lodash';
+
+const EXCLUDE_PAGES = [
+  '/signin',
+  '/signup'
+];
 
 export default class Signin extends Component {
   static propTypes = {
@@ -33,7 +39,11 @@ export default class Signin extends Component {
     const { user, loading } = this.props;
 
     if (user) {
-      const { from } = this.props.location.state || { from: { pathname: '/' } };
+      let { from } = this.props.location.state || { from: { pathname: '/' } };
+      if (_includes(EXCLUDE_PAGES, from.pathname)) {
+        from = { pathname: '/' };
+      }
+
       return (<Redirect to={from} />);
     }
 

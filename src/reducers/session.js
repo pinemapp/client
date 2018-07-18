@@ -1,4 +1,5 @@
 import { combineReducers } from 'redux';
+import token from '../utils/token';
 
 import {
   REVOKE_SESSION,
@@ -7,14 +8,14 @@ import {
   SESSION_FAILED
 } from '../constants/session';
 
-const token = (state = null, action) => {
+const user = (state = null, action) => {
   switch (action.type) {
-    case SESSION_SUCCESS:
-      return action.payload;
     case SESSION_REQUEST:
     case SESSION_FAILED:
     case REVOKE_SESSION:
       return null;
+    case SESSION_SUCCESS:
+      return token.decode(token.get());
     default:
       return state;
   }
@@ -46,4 +47,4 @@ const error = (state = false, action) => {
   }
 }
 
-export default combineReducers({ token, loading, error });
+export default combineReducers({ loading, error, user });

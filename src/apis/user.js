@@ -1,9 +1,9 @@
 import axios from 'axios';
 
-function fetchToken(payload) {
+export function createUserApi(payload) {
   return axios({
     method: 'POST',
-    url: 'http://localhost:8080/token',
+    url: 'http://localhost:8080/api/users',
     headers: {
       'Content-Type': 'application/json'
     },
@@ -14,5 +14,3 @@ function fetchToken(payload) {
     return Promise.reject(err.response.data);
   });
 }
-
-export default fetchToken;
