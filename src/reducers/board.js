@@ -10,6 +10,7 @@ const boards = (state = [], action) => {
   switch (action.type) {
     case FETCH_BOARDS_SUCCESS:
       return action.payload;
+    case FETCH_BOARDS_REQUEST:
     case FETCH_BOARDS_FAILED:
       return [];
     default:
@@ -17,4 +18,16 @@ const boards = (state = [], action) => {
   }
 }
 
-export default combineReducers({ boards });
+const loading = (state = false, action) => {
+  switch (action.type) {
+    case FETCH_BOARDS_REQUEST:
+      return true;
+    case FETCH_BOARDS_SUCCESS:
+    case FETCH_BOARDS_FAILED:
+      return false;
+    default:
+      return state;
+  }
+}
+
+export default combineReducers({ boards, loading });

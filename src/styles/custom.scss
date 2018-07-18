@@ -1,3 +1,9 @@
+@font-face {
+  font-family: "Open Sans";
+  font-weight: normal;
+  src: url("../assets/fonts/OpenSans.ttf") format("truetype");
+}
+
 body {
   padding-top: 60px;
 }
@@ -10,15 +16,14 @@ body {
   border-radius: 50%;
 }
 
-.card-tt {
-  padding: 5px;
-  display: flex;
-  flex-wrap: wrap;
-  flex-direction: row;
-  justify-content: flex-start;
-
-  .card {
-    margin: 5px;
-    flex: 0 0 33.333333%;
+.page-loader {
+  top: 50%;
+  left: 50%;
+  position: fixed;
+  margin-top: -110px;
+  margin-left: -50px;
+  img {
+    width: 100px;
+    height: 100px;
   }
 }

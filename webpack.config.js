@@ -84,6 +84,11 @@ let config = {
           'postcss-loader',
           'sass-loader'
         ]
+      },
+      {
+        test: /\.(ttf|woff|woff2|eot|svg)$/,
+        exclude: /node_modules/,
+        use: ['file-loader']
       }
     ]
   }
