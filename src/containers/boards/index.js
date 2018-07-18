@@ -1,7 +1,6 @@
 import { connect } from 'react-redux';
+import { fetchBoards } from '../../actions/boards';
+import BoardsIndex from '../../components/boards';
+import boardsSelector from '../../selectors/boards';
 
-import BoardsIndexComponent from '../../components/boards';
-
-export default connect(
-  state => state
-)(BoardsIndexComponent);
+export default connect(boardsSelector, { fetchBoards })(BoardsIndex);

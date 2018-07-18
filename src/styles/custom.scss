@@ -9,3 +9,16 @@ body {
 .img-avatar {
   border-radius: 50%;
 }
+
+.card-tt {
+  padding: 5px;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  justify-content: flex-start;
+
+  .card {
+    margin: 5px;
+    flex: 0 0 33.333333%;
+  }
+}
