@@ -2,13 +2,14 @@ import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
 import { includes as _includes } from 'lodash';
+import { hot } from 'react-hot-loader';
 
 const EXCLUDE_PAGES = [
   '/signin',
   '/signup'
 ];
 
-export default class Signin extends Component {
+export class Signin extends Component {
   static propTypes = {
     user: PropTypes.object,
     error: PropTypes.bool.isRequired,
@@ -103,8 +104,10 @@ export default class Signin extends Component {
   _renderErrorMessage() {
     return (
       <div className="alert alert-danger">
-        {this.context.t('error_invalid_credentials')}
+        {this.context.t('errorCredentials')}
       </div>
     );
   }
 }
+
+export default hot(module)(Signin);

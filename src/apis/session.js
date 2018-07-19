@@ -1,12 +1,9 @@
-import axios from 'axios';
+import api from './base';
 
 function fetchToken(payload) {
-  return axios({
+  return api({
     method: 'POST',
     url: 'http://localhost:8080/token',
-    headers: {
-      'Content-Type': 'application/json'
-    },
     data: payload
   }).then(res => {
     return res.data;

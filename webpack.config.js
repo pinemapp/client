@@ -8,6 +8,7 @@ const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin");
 
 const env = process.env.NODE_ENV || 'development';
 const isDev = env == 'development';
+const baseAPIUrl = isDev ? 'http://localhost:8080' : 'https://api.pinem.com';
 
 const App = {
   env: env,
@@ -21,7 +22,10 @@ const App = {
     app: ['./src/index.js']
   },
   plugins: [
-    new webpack.DefinePlugin({ __DEV__: isDev }),
+    new webpack.DefinePlugin({
+      __DEV__: isDev,
+      __BASE_API_URL__: JSON.stringify(baseAPIUrl)
+    }),
     new HtmlWebpackPlugin({
       filename: 'index.html',
       template: path.join(__dirname, 'index.html'),
@@ -80,6 +84,11 @@ let config = {
           'postcss-loader',
           'sass-loader'
         ]
+      },
+      {
+        test: /\.(ttf|woff|woff2|eot|svg)$/,
+        exclude: /node_modules/,
+        use: ['file-loader']
       }
     ]
   }

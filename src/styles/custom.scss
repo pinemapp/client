@@ -1,3 +1,9 @@
+@font-face {
+  font-family: "Open Sans";
+  font-weight: normal;
+  src: url("../assets/fonts/OpenSans.ttf") format("truetype");
+}
+
 body {
   padding-top: 60px;
 }
@@ -8,4 +14,16 @@ body {
 
 .img-avatar {
   border-radius: 50%;
+}
+
+.page-loader {
+  top: 50%;
+  left: 50%;
+  position: fixed;
+  margin-top: -110px;
+  margin-left: -50px;
+  img {
+    width: 100px;
+    height: 100px;
+  }
 }
