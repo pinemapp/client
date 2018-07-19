@@ -5,6 +5,8 @@ export default {
   signin: 'Sign In',
   signup: 'Sign Up',
   signout: 'Sign Out',
+  edit: 'Edit',
+  delete: 'Delete',
 
   username: 'Username',
   password: 'Password',

@@ -1,11 +1,8 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { hot } from 'react-hot-loader';
-import { Link } from 'react-router-dom';
-import color from '../../utils/color';
-import time from '../../utils/time';
+import BoardCard from './card';
 import PageLoader from '../../commons/page-loader';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 export class BoardsIndex extends Component {
   static propTypes = {
@@ -46,30 +43,8 @@ export class BoardsIndex extends Component {
   }
 
   _renderBoard(board, index) {
-    let iconStyle = {
-      backgroundColor: color.hexCode(board.name)
-    };
-
     return (
-      <div className="card-wraper" key={index}>
-        <div className="card">
-          <Link to={`/boards/${board.id}`} className="card-body">
-            <div className="card-head">
-              <span className="card-head__icon" style={iconStyle}>{board.name[0]}</span>
-              <h6 className="card-head__title">{board.name}</h6>
-            </div>
-            <p className="card-desc">{board.desc}</p>
-          </Link>
-          <div className="card-foot">
-            <label className="card-foot__created">
-              {time.formatDate(board.created_at)}
-            </label>
-            <span className="card-foot__menu">
-              <FontAwesomeIcon icon="cog" />
-            </span>
-          </div>
-        </div>
-      </div>
+      <BoardCard board={board} key={index} />
     );
   }
 }
