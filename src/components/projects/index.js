@@ -1,19 +1,19 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { hot } from 'react-hot-loader';
-import BoardCard from './card';
+import ProjectCard from './card';
 import PageLoader from '../../commons/page-loader';
 
-export class BoardsIndex extends Component {
+export class ProjectsIndex extends Component {
   static propTypes = {
     loading: PropTypes.bool,
-    boards: PropTypes.array.isRequired,
-    fetchBoards: PropTypes.func.isRequired
+    projects: PropTypes.array.isRequired,
+    fetchProjects: PropTypes.func.isRequired
   };
 
   componentDidMount() {
     if (!this.props.loading) {
-      this.props.fetchBoards();
+      this.props.fetchProjects();
     }
   }
 
@@ -29,7 +29,7 @@ export class BoardsIndex extends Component {
         <div className="row">
           <div className="col-md-12">
             <div className="card-container">
-              {this._renderBoards()}
+              {this._renderProjects()}
             </div>
           </div>
         </div>
@@ -37,16 +37,16 @@ export class BoardsIndex extends Component {
     );
   }
 
-  _renderBoards() {
-    const { boards } = this.props;
-    return boards.map(this._renderBoard);
+  _renderProjects() {
+    const { projects } = this.props;
+    return projects.map(this._renderProject);
   }
 
-  _renderBoard(board, index) {
+  _renderProject(project, index) {
     return (
-      <BoardCard board={board} key={index} />
+      <ProjectCard project={project} key={index} />
     );
   }
 }
 
-export default hot(module)(BoardsIndex);
+export default hot(module)(ProjectsIndex);

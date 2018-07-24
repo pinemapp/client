@@ -4,12 +4,12 @@ import { combineReducers } from 'redux';
 import header from './header';
 import session from './session';
 import user from './user';
-import board from './board';
+import project from './project';
 
 export default combineReducers({
   header,
   session,
   user,
   i18nState,
-  board,
+  project,
 });

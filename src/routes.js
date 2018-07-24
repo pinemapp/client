@@ -5,7 +5,7 @@ import AppLayout from './containers/app';
 import Home from './containers/home';
 import Signin from './containers/signin';
 import Signup from './containers/signup';
-import BoardsIndex from './containers/boards';
+import ProjectsIndex from './containers/projects';
 
 const routes = [
   {
@@ -14,9 +14,9 @@ const routes = [
     component: Home,
   },
   {
-    path: '/boards',
+    path: '/projects',
     protected: true,
-    component: BoardsIndex
+    component: ProjectsIndex
   },
   {
     path: '/signin',

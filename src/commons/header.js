@@ -56,7 +56,7 @@ export class Header extends Component {
           <div className="collapse navbar-collapse">
             <ul className="navbar-nav mr-auto">
               <li className="nav-item active">
-                <Link to="/boards" className="nav-link">{ this.context.t('boards') }</Link>
+                <Link to="/projects" className="nav-link">{ this.context.t('projects') }</Link>
               </li>
             </ul>
             <form className={`form-inline my-2 my-lg-0 search ${inputClass}`}>

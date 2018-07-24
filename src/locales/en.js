@@ -1,6 +1,6 @@
 export default {
   appName: 'Pinem',
-  boards: 'Boards',
+  projects: 'Projects',
   search: 'Search',
   signin: 'Sign In',
   signup: 'Sign Up',

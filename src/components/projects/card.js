@@ -6,13 +6,13 @@ import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Dropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
 
-export default class BoardCard extends Component {
+export default class ProjectCard extends Component {
   static contextTypes = {
     t: PropTypes.func.isRequired
   };
 
   static propTypes = {
-    board: PropTypes.object.isRequired
+    project: PropTypes.object.isRequired
   };
 
   constructor(props) {
@@ -27,22 +27,22 @@ export default class BoardCard extends Component {
   }
 
   render() {
-    const { board, className, ...props } = this.props;
-    const iconStyle = { backgroundColor: color.hexCode(board.name) };
+    const { project, className, ...props } = this.props;
+    const iconStyle = { backgroundColor: color.hexCode(project.name) };
 
     return (
       <div className={`card-wraper ${className}`} {...props}>
         <div className="card">
-          <Link to={`/boards/${board.id}`} className="card-body">
+          <Link to={`/projects/${project.id}`} className="card-body">
             <div className="card-head">
-              <span className="card-head__icon" style={iconStyle}>{board.name[0]}</span>
-              <h6 className="card-head__title">{board.name}</h6>
+              <span className="card-head__icon" style={iconStyle}>{project.name[0]}</span>
+              <h6 className="card-head__title">{project.name}</h6>
             </div>
-            <p className="card-desc">{board.desc}</p>
+            <p className="card-desc">{project.desc}</p>
           </Link>
           <div className="card-foot">
             <label className="card-foot__created">
-              {time.formatDate(board.created_at)}
+              {time.formatDate(project.created_at)}
             </label>
             <Dropdown tag="span" isOpen={this.state.isMenuOpen} toggle={this.toggleMenu} className="card-foot__menu">
               <DropdownToggle tag="span">
