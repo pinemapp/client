@@ -13,6 +13,12 @@
       width: 200px;
       transition: all 0.2s;
     }
+    button svg {
+      color: #777;
+      font-size: 16px;
+      margin-top: -2px;
+      transform: scaleX(-1);
+    }
     &.active {
       border-color: lighten($primary, 25%);
       input {
@@ -25,6 +31,43 @@
     .img-avatar {
       width: 30px;
       height: 30px;
+    }
+  }
+  .bell {
+    padding: 0;
+    margin-top: 2.5px;
+  }
+  .new-project-link {
+    .btn {
+      width: 80px;
+      padding-top: 6px;
+      padding-bottom: 6px;
+      color: #212529;
+      background-color: #f2f2f2;
+      &:focus {
+        online: none;
+        color: #212529;
+        box-shadow: none;
+      }
+      &:hover {
+        color: #333;
+        background-color: #e2e2e2;
+      }
+      svg {
+        font-size: 8px;
+        margin-right: 5px;
+        vertical-align: 0;
+      }
+    }
+    .dropdown-menu {
+      span {
+        width: 25px;
+        display: inline-block;
+      }
+      svg {
+        font-size: 12px;
+        margin-top: -2px;
+      }
     }
   }
 }

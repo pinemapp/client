@@ -2,7 +2,6 @@ import React from 'react';
 import { Route } from 'react-router-dom';
 
 import AppLayout from './containers/app';
-import Home from './containers/home';
 import Signin from './containers/signin';
 import Signup from './containers/signup';
 import ProjectsIndex from './containers/projects';
@@ -11,10 +10,6 @@ const routes = [
   {
     path: '/',
     exact: true,
-    component: Home,
-  },
-  {
-    path: '/projects',
     protected: true,
     component: ProjectsIndex
   },

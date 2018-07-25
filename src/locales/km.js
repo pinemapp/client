@@ -8,6 +8,8 @@ export default {
   edit: 'Edit',
   delete: 'Delete',
 
+  btnCreate: 'Create',
+
   username: 'Username',
   password: 'Password',
 
@@ -15,6 +17,12 @@ export default {
   userEmail: 'Email',
   userPassword: 'Password',
   userConfirmPassword: 'Confirm Password',
+
+  project: 'Project',
+  projectName: 'Name',
+  projectDesc: 'Description',
+
+  team: 'Team',
 
   errorRequired: 'is required',
   errorEmail: 'is not a valid email',

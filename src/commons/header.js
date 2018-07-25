@@ -25,12 +25,20 @@ export class Header extends Component {
 
   constructor(props) {
     super(props);
-    this.state = { isOpen: false };
+    this.state = {
+      isOpen: false,
+      isProjectOpen: false
+    };
   }
 
   toggleDropdown = (event) => {
     event.preventDefault();
     this.setState({ isOpen: !this.state.isOpen });
+  }
+
+  toggleProjectDropdown = (event) => {
+    event.preventDefault();
+    this.setState({ isProjectOpen: !this.state.isProjectOpen });
   }
 
   signout = (event) => {
@@ -39,7 +47,7 @@ export class Header extends Component {
   }
 
   render() {
-    const { isOpen } = this.state;
+    const { isOpen, isProjectOpen } = this.state;
     const { user, inputClass, toggleSearchFocus } = this.props;
 
     return (
@@ -55,9 +63,22 @@ export class Header extends Component {
 
           <div className="collapse navbar-collapse">
             <ul className="navbar-nav mr-auto">
-              <li className="nav-item active">
-                <Link to="/projects" className="nav-link">{ this.context.t('projects') }</Link>
-              </li>
+              <Dropdown className="new-project-link nav-item" toggle={this.toggleProjectDropdown} isOpen={isProjectOpen}>
+                <DropdownToggle tag="a" className="nav-link btn btn-primary" href="#">
+                  <FontAwesomeIcon icon="plus" />
+                  { this.context.t('btnCreate') }
+                </DropdownToggle>
+                <DropdownMenu>
+                  <DropdownItem href="#">
+                    <span><FontAwesomeIcon icon="users" /></span>
+                    {this.context.t('team')}
+                  </DropdownItem>
+                  <DropdownItem href="#">
+                    <span><FontAwesomeIcon icon="archive" /></span>
+                    {this.context.t('project')}
+                  </DropdownItem>
+                </DropdownMenu>
+              </Dropdown>
             </ul>
             <form className={`form-inline my-2 my-lg-0 search ${inputClass}`}>
               <input
@@ -71,6 +92,11 @@ export class Header extends Component {
 
             { user ? (
               <ul className="navbar-nav ml-2">
+                <li className="nav-item">
+                  <a className="bell nav-link" href="#">
+                    <FontAwesomeIcon icon={['far', 'bell']} size="2x" />
+                  </a>
+                </li>
                 <Dropdown className="nav-item" toggle={this.toggleDropdown} isOpen={isOpen}>
                   <DropdownToggle className="nav-link avatar" tag="a" href="#">
                     <img className="img-avatar" src="http://via.placeholder.com/100x100" />
