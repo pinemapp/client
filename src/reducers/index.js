@@ -5,6 +5,7 @@ import header from './header';
 import session from './session';
 import user from './user';
 import project from './project';
+import team from './team';
 
 export default combineReducers({
   header,
@@ -12,4 +13,5 @@ export default combineReducers({
   user,
   i18nState,
   project,
+  team,
 });
