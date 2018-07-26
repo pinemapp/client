@@ -7,8 +7,11 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Dropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
 
 import headerSelector from '../selectors/header';
+import { createTeam, fetchTeams } from '../actions/teams';
 import { revokeSession } from '../actions/session';
 import * as headerActions from '../actions/header';
+import TeamForm from '../components/teams/form';
+import ProjectForm from '../components/projects/form';
 
 export class Header extends Component {
   static contextTypes = {
@@ -16,9 +19,11 @@ export class Header extends Component {
   };
 
   static propTypes = {
+    team: PropTypes.object.isRequired,
     inputClass: PropTypes.string.isRequired,
     isSearchFocus: PropTypes.bool.isRequired,
 
+    createTeam: PropTypes.func.isRequired,
     revokeSession: PropTypes.func.isRequired,
     toggleSearchFocus: PropTypes.func.isRequired,
   };
@@ -27,7 +32,9 @@ export class Header extends Component {
     super(props);
     this.state = {
       isOpen: false,
-      isProjectOpen: false
+      isProjectOpen: false,
+      isTeamFormOpen: false,
+      isProjectFormOpen: false
     };
   }
 
@@ -46,8 +53,38 @@ export class Header extends Component {
     this.props.revokeSession();
   }
 
+  openTeamForm = (event) => {
+    event.preventDefault();
+    this.setState({ isTeamFormOpen: true });
+  }
+
+  openProjectForm = (event) => {
+    event.preventDefault();
+
+    if (this.props.team.data.length === 0) {
+      this.props.fetchTeams();
+    }
+    this.setState({ isProjectFormOpen: true });
+  }
+
+  closeTeamForm = (event) => {
+    this.setState({ isTeamFormOpen: false });
+  }
+
+  closeProjectForm = (event) => {
+    this.setState({ isProjectFormOpen: false });
+  }
+
+  createTeam = (team) => {
+    this.props.createTeam(team);
+  }
+
+  createProject = (project) => {
+    console.log(project);
+  }
+
   render() {
-    const { isOpen, isProjectOpen } = this.state;
+    const { isOpen, isProjectOpen, isTeamFormOpen, isProjectFormOpen } = this.state;
     const { user, inputClass, toggleSearchFocus } = this.props;
 
     return (
@@ -64,16 +101,16 @@ export class Header extends Component {
           <div className="collapse navbar-collapse">
             <ul className="navbar-nav mr-auto">
               <Dropdown className="new-project-link nav-item" toggle={this.toggleProjectDropdown} isOpen={isProjectOpen}>
-                <DropdownToggle tag="a" className="nav-link btn btn-primary" href="#">
+                <DropdownToggle tag="a" className="nav-link btn btn-secondary-1 ripple" href="#">
                   <FontAwesomeIcon icon="plus" />
                   { this.context.t('btnCreate') }
                 </DropdownToggle>
                 <DropdownMenu>
-                  <DropdownItem href="#">
+                  <DropdownItem href="#" onClick={this.openTeamForm}>
                     <span><FontAwesomeIcon icon="users" /></span>
                     {this.context.t('team')}
                   </DropdownItem>
-                  <DropdownItem href="#">
+                  <DropdownItem href="#" onClick={this.openProjectForm}>
                     <span><FontAwesomeIcon icon="archive" /></span>
                     {this.context.t('project')}
                   </DropdownItem>
@@ -121,13 +158,15 @@ export class Header extends Component {
             ) }
           </div>
         </div>
+        <TeamForm isOpen={isTeamFormOpen} onCreate={this.createTeam} onToggle={this.closeTeamForm} />
+        <ProjectForm isOpen={isProjectFormOpen} onCreate={this.createProject} onToggle={this.closeProjectForm} />
       </header>
     );
   }
 }
 
 const actionCreators = (dispatch) => {
-  return bindActionCreators({ revokeSession, ...headerActions }, dispatch);
+  return bindActionCreators({ createTeam, fetchTeams, revokeSession, ...headerActions }, dispatch);
 }
 
 export default connect(headerSelector, actionCreators)(Header);

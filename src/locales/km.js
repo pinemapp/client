@@ -9,6 +9,7 @@ export default {
   delete: 'Delete',
 
   btnCreate: 'Create',
+  btnCancel: 'Cancel',
 
   username: 'Username',
   password: 'Password',
@@ -21,8 +22,13 @@ export default {
   project: 'Project',
   projectName: 'Name',
   projectDesc: 'Description',
+  createProject: 'Create a new project',
 
   team: 'Team',
+  teamName: 'Name',
+  teamWebsite: 'Website',
+  teamDesc: 'Description',
+  createTeam: 'Create a new team',
 
   errorRequired: 'is required',
   errorEmail: 'is not a valid email',

@@ -3,7 +3,7 @@ import api from './base';
 function fetchToken(payload) {
   return api({
     method: 'POST',
-    url: 'http://localhost:8080/token',
+    url: '/token',
     data: payload
   }).then(res => {
     return res.data;

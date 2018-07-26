@@ -1,0 +1,6 @@
+button, .btn, .form-control, .form-control.is-invalid, .dropdown-item {
+  &:focus {
+    outline: none;
+    box-shadow: none;
+  }
+}

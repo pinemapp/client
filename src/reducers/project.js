@@ -5,6 +5,7 @@ import {
   FETCH_PROJECTS_SUCCESS,
   FETCH_PROJECTS_FAILED
 } from '../constants/projects';
+import { REVOKE_SESSION } from '../constants/session';
 
 const projects = (state = [], action) => {
   switch (action.type) {
@@ -12,6 +13,7 @@ const projects = (state = [], action) => {
       return action.payload;
     case FETCH_PROJECTS_REQUEST:
     case FETCH_PROJECTS_FAILED:
+    case REVOKE_SESSION:
       return [];
     default:
       return state;
