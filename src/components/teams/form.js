@@ -10,27 +10,24 @@ export class TeamForm extends Component {
 
   static propTypes = {
     form: formShape,
+    team: PropTypes.object.isRequired,
     isOpen: PropTypes.bool.isRequired,
-    onCreate: PropTypes.func.isRequired,
+    onSubmit: PropTypes.func.isRequired,
     onToggle: PropTypes.func.isRequired
   };
 
   constructor(props) {
     super(props);
-    this.state = {
-      name: '',
-      desc: '',
-      website: ''
-    };
+    this.state = { ...props.team };
   }
 
-  handleCreate = (event) => {
+  handleSubmit = (event) => {
     event.preventDefault();
 
-    const { form, onCreate } = this.props;
+    const { form, onSubmit } = this.props;
     form.validateFields((error, value) => {
       if (!error) {
-        onCreate(value);
+        onSubmit(value);
       }
     });
   }
@@ -40,11 +37,15 @@ export class TeamForm extends Component {
     this.setState({ [name]: value });
   }
 
+  clearState = () => {
+    this.setState(this.props.team);
+  }
+
   render() {
     const { isOpen, onToggle } = this.props;
 
     return (
-      <Modal isOpen={isOpen} toggle={onToggle} centered={true} fade={false}>
+      <Modal isOpen={isOpen} toggle={onToggle} centered={true} fade={false} onClosed={this.clearState}>
         <ModalHeader toggle={onToggle}>
           {this.context.t('createTeam')}
         </ModalHeader>
@@ -55,7 +56,7 @@ export class TeamForm extends Component {
           <Button color="secondary-1" className="ripple" onClick={onToggle}>
             {this.context.t('btnCancel')}
           </Button>
-          <Button color="primary" className="ripple" onClick={this.handleCreate}>
+          <Button color="primary" className="ripple" onClick={this.handleSubmit}>
             {this.context.t('btnCreate')}
           </Button>
         </ModalFooter>
@@ -72,12 +73,13 @@ export class TeamForm extends Component {
     const descError = getFieldError('desc');
 
     return (
-      <form className="form" onSubmit={this.handleCreate}>
+      <form className="form-custom" onSubmit={this.handleSubmit}>
         <div className="form-group">
           <label htmlFor="name">{this.context.t('teamName')}</label>
           <input
             { ...getFieldProps('name', {
               onChange: this.handleChange,
+              initialValue: this.state.name,
               rules: [{required: true, message: requiredMessage}]
             }) }
             type="text"
@@ -89,7 +91,7 @@ export class TeamForm extends Component {
           {nameError ? (<p className="invalid-feedback">{nameError.join(', ')}</p>) : null }
         </div>
         <div className="form-group">
-          <label htmlFor="website">{this.context.t('teamWebsite')}</label>
+          <label htmlFor="website">{this.context.t('teamWebsiteOptional')}</label>
           <input
             type="text"
             name="website"
@@ -99,10 +101,11 @@ export class TeamForm extends Component {
             placeholder={this.context.t('teamWebsite')} />
         </div>
         <div className="form-group">
-          <label htmlFor="desc">{this.context.t('teamName')}</label>
+          <label htmlFor="desc">{this.context.t('teamDescOptional')}</label>
           <textarea
             { ...getFieldProps('desc', {
               onChange: this.handleChange,
+              initialValue: this.state.desc,
               rules: [
                 {max: 1000, message: maxMessage}
               ]

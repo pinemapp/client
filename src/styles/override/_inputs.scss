@@ -4,3 +4,15 @@ button, .btn, .form-control, .form-control.is-invalid, .dropdown-item {
     box-shadow: none;
   }
 }
+
+input.form-control,
+textarea.form-control {
+  font-size: 14px;
+  padding: 10px 15px;
+  line-height: 14px !important;
+}
+
+.btn {
+  padding: 10px 25px;
+  border-radius: 6px;
+}

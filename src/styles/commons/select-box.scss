@@ -1,0 +1,32 @@
+.select-box {
+  .btn {
+    color: #333;
+    width: 100%;
+    text-align: left;
+    position: relative;
+    background: transparent;
+    padding: 0px 8px;
+    height: 32px;
+    svg {
+      top: 50%;
+      margin-top: -7px;
+      right: 0.65rem;
+      position: absolute;
+    }
+  }
+  .btn:hover, .btn:active, .btn:focus {
+    color: #333 !important;
+    background: transparent !important;
+  }
+  .dropdown-menu {
+    border-top: none;
+    width: 100%;
+    box-sizing: content-box;
+    border-radius: 0 0 5px 5px;
+    top: -5px !important;
+    left: -9px !important;
+    .dropdown-item {
+      padding: 9px 15px;
+    }
+  }
+}

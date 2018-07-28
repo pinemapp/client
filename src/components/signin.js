@@ -65,7 +65,7 @@ export class Signin extends Component {
         <div className="card">
           <div className="card-body">
             <h1 className="card-title text-center">{this.context.t('signin')}</h1>
-            <form className="form" onSubmit={this.signin}>
+            <form className="form-custom" onSubmit={this.signin}>
               { error && this._renderErrorMessage() }
               <div className="form-group">
                 <label htmlFor="username">{this.context.t('username')}</label>

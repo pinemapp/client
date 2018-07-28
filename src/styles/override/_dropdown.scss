@@ -1,9 +1,19 @@
 .dropdown {
   .dropdown-menu {
     .dropdown-item {
+      padding: 6px 20px;
       &:hover {
         @extend .active;
-        background-color: lighten($primary, 15%);
+        background-color: $primary;
+      }
+      &.disabled {
+        color: #454545;
+        font-size: 15px;
+        font-weight: 600;
+        &:hover {
+          color: #454545;
+          background-color: transparent;
+        }
       }
     }
   }

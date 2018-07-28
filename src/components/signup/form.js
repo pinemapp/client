@@ -53,7 +53,7 @@ class SignupForm extends Component {
     const emailMessage = this.context.t('errorEmail');
 
     return (
-      <form className="form" onSubmit={this.handleSubmit}>
+      <form className="form-custom" onSubmit={this.handleSubmit}>
         <div className="form-group">
           <label htmlFor="name">{this.context.t('userName')}</label>
           <input
