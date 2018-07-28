@@ -7,7 +7,9 @@ import PageLoader from '../../commons/page-loader';
 export class ProjectsIndex extends Component {
   static propTypes = {
     loading: PropTypes.bool,
+    teams: PropTypes.array.isRequired,
     projects: PropTypes.array.isRequired,
+    updateProject: PropTypes.func.isRequired,
     fetchProjects: PropTypes.func.isRequired
   };
 
@@ -42,9 +44,14 @@ export class ProjectsIndex extends Component {
     return projects.map(this._renderProject);
   }
 
-  _renderProject(project, index) {
+  _renderProject = (project) => {
+    const { teams, updateProject } = this.props;
     return (
-      <ProjectCard project={project} key={index} />
+      <ProjectCard
+        teams={teams}
+        key={project.id}
+        project={project}
+        updateProject={updateProject} />
     );
   }
 }

@@ -1,0 +1,8 @@
+.form-custom {
+  .form-control:not(.is-invalid) {
+    border-radius: 6px;
+    &:focus {
+      border-color: $primary;
+    }
+  }
+}

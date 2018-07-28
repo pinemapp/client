@@ -1,7 +1,8 @@
-import { put, call, takeLatest } from 'redux-saga/effects';
-import { FETCH_TEAMS_REQUEST } from '../constants/teams';
-import { fetchTeams as fetchTeamsApi } from '../apis/teams';
-import { fetchTeamsSuccess, fetchTeamsFailed } from '../actions/teams';
+import { toClientErrors } from '../utils/errors';
+import { put, call, takeLatest, all } from 'redux-saga/effects';
+import { FETCH_TEAMS_REQUEST, CREATE_TEAM_REQUEST } from '../constants/teams';
+import { fetchTeams as fetchTeamsApi, createTeam as createTeamApi } from '../apis/teams';
+import { fetchTeamsSuccess, fetchTeamsFailed, createTeamSuccess, createTeamFailed } from '../actions/teams';
 
 function* fetchTeams() {
   try {
@@ -12,6 +13,18 @@ function* fetchTeams() {
   }
 }
 
+function* createTeam(action) {
+  try {
+    const team = yield call(createTeamApi, action.payload);
+    yield put(createTeamSuccess(team));
+  } catch (err) {
+    yield put(createTeamFailed(toClientErrors(err.errors)));
+  }
+}
+
 export default function* () {
-  yield takeLatest(FETCH_TEAMS_REQUEST, fetchTeams)
+  yield all([
+    takeLatest(FETCH_TEAMS_REQUEST, fetchTeams),
+    takeLatest(CREATE_TEAM_REQUEST, createTeam)
+  ]);
 }

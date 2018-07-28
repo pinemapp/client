@@ -9,3 +9,18 @@
 .modal-dialog {
   margin: 0 auto;
 }
+
+.modal-header {
+  border-bottom: none;
+  padding-bottom: 45px;
+  .modal-title {
+    left: 50%;
+    font-weight: 600;
+    position: absolute;
+    transform: translateX(-50%);
+  }
+}
+
+.modal-footer {
+  border-top: none;
+}

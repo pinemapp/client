@@ -10,3 +10,28 @@ export const fetchProjects = () => {
     return Promise.reject(err.response.data);
   });
 }
+
+export const createProject = (payload) => {
+  return api({
+    method: 'POST',
+    url: '/api/projects',
+    data: payload
+  }).then(res => {
+    return res.data.project;
+  }).catch(err => {
+    return Promise.reject(err.response.data);
+  });
+}
+
+export const updateProject = (payload) => {
+  const { id, ...data } = payload;
+  return api({
+    method: 'PUT',
+    url: `/api/projects/${id}`,
+    data: data
+  }).then(res => {
+    return res.data.project
+  }).catch(err => {
+    return Promise.reject(err.response.data);
+  });
+}

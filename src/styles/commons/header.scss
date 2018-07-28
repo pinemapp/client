@@ -1,12 +1,14 @@
 .navbar {
   background-color: #fff !important;
+  box-shadow: 0 6px 3px -3px #e2e2e2;
   .search {
     background-color: #fff;
     border: 1px solid #d2d2d2;
-    border-radius: 3px;
+    border-radius: 6px;
     input, button {
       border: none;
       outline: none;
+      padding: 6px 15px;
       background: transparent;
     }
     input {
@@ -20,17 +22,26 @@
       transform: scaleX(-1);
     }
     &.active {
-      border-color: lighten($primary, 25%);
+      border-color: $primary;
       input {
         width: 300px;
       }
     }
+  }
+  .dropdown-menu {
+    top: 6px !important;
   }
   .avatar {
     padding: 0;
     .img-avatar {
       width: 30px;
       height: 30px;
+      border: 1px solid #d2d2d2;
+    }
+    &:hover {
+      .img-avatar {
+        opacity: 0.8;
+      }
     }
   }
   .bell {
@@ -42,16 +53,12 @@
       width: 80px;
       padding-top: 6px;
       padding-bottom: 6px;
-      color: #212529;
-      background-color: #f2f2f2;
       &:focus {
         online: none;
-        color: #212529;
         box-shadow: none;
       }
       &:hover {
         color: #333;
-        background-color: #e2e2e2;
       }
       svg {
         font-size: 8px;

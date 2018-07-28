@@ -10,3 +10,15 @@ export const fetchTeams = () => {
     return Promise.reject(err.response.data);
   });
 }
+
+export const createTeam = (payload) => {
+  return api({
+    method: 'POST',
+    data: payload,
+    url: '/api/teams',
+  }).then(res => {
+    return res.data.team;
+  }).catch(err => {
+    return Promise.reject(err.response.data);
+  });
+}

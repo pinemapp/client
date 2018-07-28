@@ -3,7 +3,7 @@ import api from './base';
 export function createUserApi(payload) {
   return api({
     method: 'POST',
-    url: 'http://localhost:8080/api/users',
+    url: '/api/users',
     data: payload
   }).then(res => {
     return res.data;

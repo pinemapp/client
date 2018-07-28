@@ -15,7 +15,8 @@ const user = (state = null, action) => {
     case REVOKE_SESSION:
       return null;
     case SESSION_SUCCESS:
-      return token.decode(token.get());
+      const accessToken = token.decode(token.get());
+      return accessToken ? accessToken.user : null;
     default:
       return state;
   }
