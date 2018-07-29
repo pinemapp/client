@@ -18,7 +18,14 @@ export class TeamForm extends Component {
 
   constructor(props) {
     super(props);
+    this.txtName = React.createRef();
     this.state = { ...props.team };
+  }
+
+  focusTextbox = () => {
+    if (this.txtName.current) {
+      this.txtName.current.focus();
+    }
   }
 
   handleSubmit = (event) => {
@@ -42,12 +49,19 @@ export class TeamForm extends Component {
   }
 
   render() {
-    const { isOpen, onToggle } = this.props;
+    const { isOpen, onToggle, team } = this.props;
+    const isNew = !team.id;
 
     return (
-      <Modal isOpen={isOpen} toggle={onToggle} centered={true} fade={false} onClosed={this.clearState}>
+      <Modal
+        fade={false}
+        centered={true}
+        isOpen={isOpen}
+        toggle={onToggle}
+        onClosed={this.clearState}
+        onOpened={this.focusTextbox}>
         <ModalHeader toggle={onToggle}>
-          {this.context.t('createTeam')}
+          {this.context.t(isNew ? 'createTeam' : 'updateTeam')}
         </ModalHeader>
         <ModalBody>
           {this._renderForm()}
@@ -57,7 +71,7 @@ export class TeamForm extends Component {
             {this.context.t('btnCancel')}
           </Button>
           <Button color="primary" className="ripple" onClick={this.handleSubmit}>
-            {this.context.t('btnCreate')}
+            {this.context.t(isNew ? 'btnCreate' : 'btnSave')}
           </Button>
         </ModalFooter>
       </Modal>
@@ -85,7 +99,8 @@ export class TeamForm extends Component {
             type="text"
             name="name"
             value={name}
-            autoComplete="false"
+            ref={this.txtName}
+            autoComplete="off"
             className={`form-control ${nameError ? 'is-invalid' : ''}`}
             placeholder={this.context.t('teamName')} />
           {nameError ? (<p className="invalid-feedback">{nameError.join(', ')}</p>) : null }
@@ -96,6 +111,7 @@ export class TeamForm extends Component {
             type="text"
             name="website"
             value={website}
+            autoComplete="off"
             className="form-control"
             onChange={this.handleChange}
             placeholder={this.context.t('teamWebsite')} />

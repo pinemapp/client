@@ -20,7 +20,14 @@ export class ProjectForm extends Component {
 
   constructor(props) {
     super(props);
+    this.txtName = React.createRef();
     this.state = { ...props.project };
+  }
+
+  focusTextbox = () => {
+    if (this.txtName.current) {
+      this.txtName.current.focus();
+    }
   }
 
   handleSubmit = (event) => {
@@ -32,6 +39,7 @@ export class ProjectForm extends Component {
         onSubmit({
           ...value,
           id: this.props.project.id,
+          public: this.state.public,
           team_id: this.state.team_id || null
         });
       }
@@ -39,8 +47,8 @@ export class ProjectForm extends Component {
   }
 
   handleChange = (event) => {
-    const { name, value } = event.target;
-    this.setState({ [name]: value });
+    const { name, value, type, checked } = event.target;
+    this.setState({ [name]: type === 'checkbox' ? checked : value });
   }
 
   handleTeamChange = (event) => {
@@ -52,23 +60,46 @@ export class ProjectForm extends Component {
   }
 
   render() {
-    const { isOpen, onToggle } = this.props;
+    const { isOpen, onToggle, project } = this.props;
+    const isNew = !project.id;
 
     return (
-      <Modal isOpen={isOpen} toggle={onToggle} centered={true} fade={false} onClosed={this.clearState}>
+      <Modal
+        fade={false}
+        centered={true}
+        isOpen={isOpen}
+        toggle={onToggle}
+        onClosed={this.clearState}
+        onOpened={this.focusTextbox}>
         <ModalHeader toggle={onToggle}>
-          {this.context.t('createProject')}
+          {this.context.t(isNew ? 'createProject' : 'updateProject')}
         </ModalHeader>
         <ModalBody>
           {this._renderForm()}
         </ModalBody>
-        <ModalFooter>
-          <Button color="secondary-1" className="ripple" onClick={onToggle}>
-            {this.context.t('btnCancel')}
-          </Button>
-          <Button color="primary" className="ripple" onClick={this.handleSubmit}>
-            {this.context.t('btnCreate')}
-          </Button>
+        <ModalFooter className="modal-custom-footer">
+          <div className="custom-control custom-checkbox custom-checkbox-big">
+            <input
+              id="public"
+              name="public"
+              type="checkbox"
+              checked={this.state.public}
+              onChange={this.handleChange}
+              className="custom-control-input" />
+            <label
+              htmlFor="public"
+              className="custom-control-label">
+              {this.context.t('publicProject')}
+            </label>
+          </div>
+          <div className="modal-custom-footer__button-group">
+            <Button color="secondary-1" className="ripple" onClick={onToggle}>
+              {this.context.t('btnCancel')}
+            </Button>
+            <Button color="primary" className="ripple" onClick={this.handleSubmit}>
+              {this.context.t(isNew ? 'btnCreate' : 'btnSave')}
+            </Button>
+          </div>
         </ModalFooter>
       </Modal>
     );
@@ -94,13 +125,15 @@ export class ProjectForm extends Component {
               }) }
               type="text"
               name="name"
+              autoComplete="off"
+              ref={this.txtName}
               value={this.state.name}
               placeholder={this.context.t('projectName')}
               className={`form-control ${nameError ? 'is-invalid' : ''}`} />
             {nameError ? (<p className="invalid-feedback">{nameError.join(', ')}</p>) : null }
           </div>
           <div className="form-group">
-            <label htmlFor="name">{this.context.t('team')}</label>
+            <label htmlFor="name">{this.context.t('teamOptional')}</label>
             <SelectBox
               text="name"
               name="team_id"
@@ -110,7 +143,7 @@ export class ProjectForm extends Component {
               onChange={this.handleTeamChange} />
           </div>
           <div className="form-group">
-            <label htmlFor="desc">{this.context.t('projectDesc')}</label>
+            <label htmlFor="desc">{this.context.t('projectDescOptional')}</label>
             <textarea
               { ...getFieldProps('desc', {
                 initialValue: this.state.desc,

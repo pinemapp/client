@@ -24,3 +24,14 @@
 .modal-footer {
   border-top: none;
 }
+
+.modal-custom-footer {
+  justify-content: space-between;
+  &__button-group {
+    display: flex;
+    justify-content: flex-end;
+    button:first-child {
+      margin-right: 10px;
+    }
+  }
+}

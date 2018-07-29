@@ -16,6 +16,7 @@ export default {
 
   btnCreate: 'Create',
   btnCancel: 'Cancel',
+  btnSave: 'Save',
 
   username: 'Username',
   password: 'Password',
@@ -29,16 +30,20 @@ export default {
   projectName: 'Name',
   projectDesc: 'Description',
   projectMenu: 'Project Menu',
+  publicProject: 'Public project',
   projectDescOptional: "Description (Optional)",
   createProject: 'Create a new project',
+  updateProject: 'Update a project',
 
   team: 'Team',
+  teamOptional: 'Team (Optional)',
   teamName: 'Name',
   teamWebsite: 'Website',
   teamWebsiteOptional: 'Website (Optional)',
   teamDesc: 'Description',
   teamDescOptional: 'Description (Optional)',
   createTeam: 'Create a new team',
+  updateTeam: 'Update a team',
 
   errorRequired: 'is required',
   errorEmail: 'is not a valid email',

@@ -1,0 +1,20 @@
+.custom-checkbox {
+  label {
+    font-weight: 300;
+    &:before {
+      margin-top: -2px;
+    }
+  }
+  &.custom-checkbox-big {
+    label {
+      font-weight: 300;
+      font-size: 14px;
+      padding-left: 5px;
+      &:before, &:after {
+        width: 21px;
+        height: 21px;
+        margin-top: -3px;
+      }
+    }
+  }
+}
