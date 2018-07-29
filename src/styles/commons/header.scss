@@ -50,7 +50,7 @@
   }
   .new-project-link {
     .btn {
-      width: 80px;
+      width: 125px;
       padding-top: 6px;
       padding-bottom: 6px;
       &:focus {
@@ -60,20 +60,15 @@
       &:hover {
         color: #333;
       }
-      svg {
-        font-size: 8px;
-        margin-right: 5px;
-        vertical-align: 0;
-      }
-    }
-    .dropdown-menu {
-      span {
-        width: 25px;
-        display: inline-block;
-      }
-      svg {
-        font-size: 12px;
-        margin-top: -2px;
+      .text-icon {
+        span {
+          width: 15px;
+          text-align: left;
+        }
+        svg {
+          font-size: 8px;
+          vertical-align: 0;
+        }
       }
     }
   }

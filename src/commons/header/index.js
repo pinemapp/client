@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { Dropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
+import { Dropdown, DropdownToggle, DropdownMenu, DropdownItem, Tooltip } from 'reactstrap';
 import headerSelector from '../../selectors/header';
 import { createTeam, fetchTeams } from '../../actions/teams';
 import { createProject } from '../../actions/projects';
@@ -14,6 +14,7 @@ import ProjectForm from '../../components/projects/form';
 import Project from '../../models/project';
 import Team from '../../models/team';
 import Search from './search';
+import TextIcon from '../text-icon';
 
 const NewTeam = new Team();
 const NewProject = new Project();
@@ -34,6 +35,7 @@ export class Header extends Component {
     super(props);
     this.state = {
       isOpen: false,
+      isTooltipOpen: false,
       isProjectOpen: false,
       isTeamFormOpen: false,
       isProjectFormOpen: false
@@ -67,6 +69,10 @@ export class Header extends Component {
       this.props.fetchTeams();
     }
     this.setState({ isProjectFormOpen: !this.state.isProjectFormOpen });
+  }
+
+  toggleTooltip = () => {
+    this.setState({ isTooltipOpen: !this.state.isTooltipOpen });
   }
 
   createTeam = (team) => {
@@ -125,17 +131,14 @@ export class Header extends Component {
           className="new-project-link nav-item">
           <DropdownToggle tag="a" href="#"
             className="nav-link btn btn-secondary-1 ripple">
-            <FontAwesomeIcon icon="plus" />
-            { this.context.t('btnCreate') }
+            <TextIcon icon="plus" text={this.context.t('btnCreate')} />
           </DropdownToggle>
           <DropdownMenu>
             <DropdownItem href="#" onClick={this.toggleTeamForm}>
-              <span><FontAwesomeIcon icon="users" /></span>
-              {this.context.t('team')}
+              <TextIcon icon="users" text={this.context.t('team')} />
             </DropdownItem>
             <DropdownItem href="#" onClick={this.toggleProjectForm}>
-              <span><FontAwesomeIcon icon="archive" /></span>
-              {this.context.t('project')}
+              <TextIcon icon="archive" text={this.context.t('project')} />
             </DropdownItem>
           </DropdownMenu>
         </Dropdown>
@@ -166,9 +169,17 @@ export class Header extends Component {
     return (
       <ul className="navbar-nav ml-2">
         <li className="nav-item">
-          <a className="bell nav-link" href="#">
+          <a id="bell-icon" className="bell nav-link" href="#">
             <FontAwesomeIcon icon={['far', 'bell']} size="2x" />
           </a>
+          <Tooltip
+            delay={0}
+            placement="bottom"
+            target="bell-icon"
+            toggle={this.toggleTooltip}
+            isOpen={this.state.isTooltipOpen}>
+            {this.context.t('notification')}
+          </Tooltip>
         </li>
         <Dropdown className="nav-item" toggle={this.toggleDropdown} isOpen={this.state.isOpen}>
           <DropdownToggle className="nav-link avatar" tag="a" href="#">
@@ -177,10 +188,16 @@ export class Header extends Component {
           <DropdownMenu right={true}>
             <DropdownItem className="text-center" tag="label" disabled={true}>{user.name}</DropdownItem>
             <DropdownItem divider></DropdownItem>
-            <DropdownItem href="#">{this.context.t('myAccount')}</DropdownItem>
-            <DropdownItem href="#">{this.context.t('settings')}</DropdownItem>
+            <DropdownItem href="#">
+              <TextIcon icon="user-alt" text={this.context.t('myAccount')} />
+            </DropdownItem>
+            <DropdownItem href="#">
+              <TextIcon icon="cogs" text={this.context.t('settings')} />
+            </DropdownItem>
             <DropdownItem divider></DropdownItem>
-            <DropdownItem href="#" onClick={this.signout}>{ this.context.t('signout') }</DropdownItem>
+            <DropdownItem href="#" onClick={this.signout}>
+              <TextIcon icon="sign-out-alt" text={this.context.t('signout')} />
+            </DropdownItem>
           </DropdownMenu>
         </Dropdown>
       </ul>

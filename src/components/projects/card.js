@@ -4,6 +4,7 @@ import color from '../../utils/color';
 import time from '../../utils/time';
 import { Link } from 'react-router-dom';
 import ProjectForm from '../../components/projects/form';
+import TextIcon from '../../commons/text-icon';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Dropdown, DropdownToggle, DropdownMenu, DropdownItem, Tooltip } from 'reactstrap';
 
@@ -75,10 +76,14 @@ export default class ProjectCard extends Component {
                 </Tooltip>
               </DropdownToggle>
               <DropdownMenu right={true}>
-                <DropdownItem tag="label" className="text-center" disabled={true}>{this.context.t('menu')}</DropdownItem>
+                <DropdownItem tag="label" className="text-center" disabled={true}>{this.context.t('projectMenu')}</DropdownItem>
                 <DropdownItem divider></DropdownItem>
-                <DropdownItem href="#" onClick={this.toggleEditForm}>{this.context.t('edit')}</DropdownItem>
-                <DropdownItem href="#">{this.context.t('delete')}</DropdownItem>
+                <DropdownItem href="#" onClick={this.toggleEditForm}>
+                  <TextIcon icon="edit" text={this.context.t('edit')} />
+                </DropdownItem>
+                <DropdownItem href="#" className="text-danger">
+                  <TextIcon icon="trash-alt" text={this.context.t('delete')} />
+                </DropdownItem>
               </DropdownMenu>
             </Dropdown>
           </div>

@@ -15,6 +15,12 @@
           background-color: transparent;
         }
       }
+      &.text-danger {
+        &:hover {
+          color: #fff !important;
+          background-color: lighten($danger, 15%);
+        }
+      }
     }
   }
 }

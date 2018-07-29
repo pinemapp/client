@@ -12,6 +12,7 @@ export default {
 
   myAccount: 'My Account',
   settings: 'Settings',
+  notification: 'Notification',
 
   btnCreate: 'Create',
   btnCancel: 'Cancel',
