@@ -63,8 +63,8 @@ export default class ProjectCard extends Component {
             </label>
             <Dropdown tag="span" isOpen={isMenuOpen} toggle={this.toggleMenu} className="card-foot__menu">
               <DropdownToggle tag="span">
-                <span id={`project-${project.id}-menu`}>
-                  <FontAwesomeIcon icon="cog" />
+                <span id={`project-${project.id}-menu`} className="card-foot__menu-icon">
+                  <FontAwesomeIcon icon="ellipsis-h" />
                 </span>
                 <Tooltip
                   delay={0}

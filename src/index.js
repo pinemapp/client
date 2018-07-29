@@ -14,7 +14,8 @@ import {
   faTrashAlt,
   faUserAlt,
   faCogs,
-  faSignOutAlt
+  faSignOutAlt,
+  faEllipsisH
 } from '@fortawesome/free-solid-svg-icons';
 
 import App from './app';
@@ -23,7 +24,7 @@ library.add(
   far, faSearch, faCog,
   faPlus, faUsers, faArchive,
   faBell, faCaretDown, faEdit,
-  faTrashAlt, faUserAlt, faCogs,
-  faSignOutAlt
+  faTrashAlt, faUserAlt,
+  faSignOutAlt, faEllipsisH
 );
 ReactDOM.render(<App />, document.getElementById('app'));

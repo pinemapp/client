@@ -192,7 +192,7 @@ export class Header extends Component {
               <TextIcon icon="user-alt" text={this.context.t('myAccount')} />
             </DropdownItem>
             <DropdownItem href="#">
-              <TextIcon icon="cogs" text={this.context.t('settings')} />
+              <TextIcon icon="cog" text={this.context.t('settings')} />
             </DropdownItem>
             <DropdownItem divider></DropdownItem>
             <DropdownItem href="#" onClick={this.signout}>
