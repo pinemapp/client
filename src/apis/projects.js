@@ -35,3 +35,12 @@ export const updateProject = (payload) => {
     return Promise.reject(err.response.data);
   });
 }
+
+export const deleteProject = (id) => {
+  return api({
+    method: 'DELETE',
+    url: `/api/projects/${id}`
+  }).catch(err => {
+    return Promise.reject(err.response.data);
+  });
+}

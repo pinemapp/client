@@ -1,6 +1,6 @@
 import { toClientErrors } from '../utils/errors';
 import { put, call, takeLatest, all } from 'redux-saga/effects';
-import { FETCH_PROJECTS_REQUEST, CREATE_PROJECT_REQUEST, UPDATE_PROJECT_REQUEST } from '../constants/projects';
+import * as ProjectConstant from '../constants/projects';
 import * as ProjectAPI from '../apis/projects';
 import * as ProjectActions from '../actions/projects';
 
@@ -31,10 +31,20 @@ function* updateProject(action) {
   }
 }
 
+function* deleteProject(action) {
+  try {
+    yield call(ProjectAPI.deleteProject, action.payload);
+    yield put(ProjectActions.deleteProjectSuccess(action.payload));
+  } catch (err) {
+    yield put(ProjectActions.deleteProjectFailed(toClientErrors(err.errors)));
+  }
+}
+
 export default function* () {
   yield all([
-    takeLatest(FETCH_PROJECTS_REQUEST, fetchProjects),
-    takeLatest(CREATE_PROJECT_REQUEST, createProject),
-    takeLatest(UPDATE_PROJECT_REQUEST, updateProject)
+    takeLatest(ProjectConstant.FETCH_PROJECTS_REQUEST, fetchProjects),
+    takeLatest(ProjectConstant.CREATE_PROJECT_REQUEST, createProject),
+    takeLatest(ProjectConstant.UPDATE_PROJECT_REQUEST, updateProject),
+    takeLatest(ProjectConstant.DELETE_PROJECT_REQUEST, deleteProject)
   ]);
 }

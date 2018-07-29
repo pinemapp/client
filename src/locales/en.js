@@ -17,6 +17,7 @@ export default {
   btnCreate: 'Create',
   btnCancel: 'Cancel',
   btnSave: 'Save',
+  btnDelete: 'Delete',
 
   username: 'Username',
   password: 'Password',
@@ -34,6 +35,8 @@ export default {
   projectDescOptional: "Description (Optional)",
   createProject: 'Create a new project',
   updateProject: 'Update a project',
+  deleteProject: 'Delete a project',
+  deleteProjectConfirm: 'Do you really want to delete <strong>{name}</strong> project?',
 
   team: 'Team',
   teamOptional: 'Team (Optional)',

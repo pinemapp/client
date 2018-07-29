@@ -10,7 +10,8 @@ export class ProjectsIndex extends Component {
     teams: PropTypes.array.isRequired,
     projects: PropTypes.array.isRequired,
     updateProject: PropTypes.func.isRequired,
-    fetchProjects: PropTypes.func.isRequired
+    fetchProjects: PropTypes.func.isRequired,
+    deleteProject: PropTypes.func.isRequired
   };
 
   componentDidMount() {
@@ -45,13 +46,14 @@ export class ProjectsIndex extends Component {
   }
 
   _renderProject = (project) => {
-    const { teams, updateProject } = this.props;
+    const { teams, updateProject, deleteProject } = this.props;
     return (
       <ProjectCard
         teams={teams}
         key={project.id}
         project={project}
-        updateProject={updateProject} />
+        updateProject={updateProject}
+        deleteProject={deleteProject} />
     );
   }
 }

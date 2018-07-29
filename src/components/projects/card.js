@@ -6,7 +6,18 @@ import { Link } from 'react-router-dom';
 import ProjectForm from '../../components/projects/form';
 import TextIcon from '../../commons/text-icon';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { Dropdown, DropdownToggle, DropdownMenu, DropdownItem, Tooltip } from 'reactstrap';
+import {
+  Dropdown,
+  DropdownToggle,
+  DropdownMenu,
+  DropdownItem,
+  Tooltip,
+  Modal,
+  ModalHeader,
+  ModalBody,
+  ModalFooter,
+  Button
+} from 'reactstrap';
 
 export default class ProjectCard extends Component {
   static contextTypes = {
@@ -16,7 +27,8 @@ export default class ProjectCard extends Component {
   static propTypes = {
     teams: PropTypes.array.isRequired,
     project: PropTypes.object.isRequired,
-    updateProject: PropTypes.func.isRequired
+    updateProject: PropTypes.func.isRequired,
+    deleteProject: PropTypes.func.isRequired
   };
 
   constructor(props) {
@@ -42,9 +54,19 @@ export default class ProjectCard extends Component {
     this.setState({ isFormOpen: !this.state.isFormOpen });
   }
 
+  toggleDeleteModal = (event) => {
+    event.preventDefault();
+    this.setState({ isDeleteModalOpen: !this.state.isDeleteModalOpen });
+  }
+
+  deleteProject = () => {
+    const { project, deleteProject } = this.props;
+    deleteProject(project.id);
+  }
+
   render() {
-    const { isTooltipOpen, isMenuOpen, isFormOpen } = this.state;
-    const { project, className, teams, updateProject, ...props } = this.props;
+    const { isTooltipOpen, isMenuOpen, isFormOpen, isDeleteModalOpen } = this.state;
+    const { project, className, teams, updateProject, deleteProject, ...props } = this.props;
     const iconStyle = { backgroundColor: color.hexCode(project.name) };
 
     return (
@@ -81,7 +103,7 @@ export default class ProjectCard extends Component {
                 <DropdownItem href="#" onClick={this.toggleEditForm}>
                   <TextIcon icon="edit" text={this.context.t('edit')} />
                 </DropdownItem>
-                <DropdownItem href="#" className="text-danger">
+                <DropdownItem href="#" className="text-danger" onClick={this.toggleDeleteModal}>
                   <TextIcon icon="trash-alt" text={this.context.t('delete')} />
                 </DropdownItem>
               </DropdownMenu>
@@ -94,6 +116,27 @@ export default class ProjectCard extends Component {
           isOpen={isFormOpen}
           onSubmit={updateProject}
           onToggle={this.toggleEditForm} />
+        <Modal
+          size="md"
+          fade={false}
+          centered={true}
+          isOpen={isDeleteModalOpen}
+          toggle={this.toggleDeleteModal}>
+          <ModalHeader toggle={this.toggleDeleteModal}>
+            {this.context.t('deleteProject')}
+          </ModalHeader>
+          <ModalBody>
+            <p className="text-center" dangerouslySetInnerHTML={{__html:this.context.t('deleteProjectConfirm', {name: project.name})}}></p>
+          </ModalBody>
+          <ModalFooter>
+            <Button color="secondary-1" className="ripple" onClick={this.toggleDeleteModal}>
+              {this.context.t('btnCancel')}
+            </Button>
+            <Button color="danger" className="ripple" onClick={this.deleteProject}>
+              {this.context.t('btnDelete')}
+            </Button>
+          </ModalFooter>
+        </Modal>
       </div>
     );
   }

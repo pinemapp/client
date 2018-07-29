@@ -11,7 +11,11 @@ import {
 
   UPDATE_PROJECT_REQUEST,
   UPDATE_PROJECT_SUCCESS,
-  UPDATE_PROJECT_FAILED
+  UPDATE_PROJECT_FAILED,
+
+  DELETE_PROJECT_REQUEST,
+  DELETE_PROJECT_SUCCESS,
+  DELETE_PROJECT_FAILED
 } from '../constants/projects';
 import { REVOKE_SESSION } from '../constants/session';
 
@@ -25,13 +29,22 @@ const projects = (state = [], action) => {
       return [];
     case CREATE_PROJECT_SUCCESS:
       return [action.payload, ...state];
-    case UPDATE_PROJECT_SUCCESS:
+    case UPDATE_PROJECT_SUCCESS: {
       const index = state.findIndex((p) => p.id === action.payload.id);
       if (index !== -1) {
         state[index] = action.payload;
         return [...state];
       }
       return state;
+    }
+    case DELETE_PROJECT_SUCCESS: {
+      const index = state.findIndex((p) => p.id === action.payload);
+      if (index !== -1) {
+        state.splice(index, 1);
+        return [...state];
+      }
+      return state;
+    }
     default:
       return state;
   }
